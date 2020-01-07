@@ -63,13 +63,15 @@ public class ContentInit {
 //        cache.addToCache(customers);
 //        System.out.println(cache);
     }
+    //static Cache<List> cache;
+    final Cache<List> cache = new Cache<>();
 
     public List add(List list) {
-        final Cache<List> cache = new Cache<>();
         cache.addToCache(list);
         System.out.println(cache);
         return list;
     }
+
 
     public static void main(String[] args) {
 
@@ -77,8 +79,25 @@ public class ContentInit {
         list.add(4);
         list.add(5);
 
-        final ContentInit cache = new ContentInit();
-        cache.add(list);
+        List list2 = new LinkedList();
+        list2.add(8);
+        list2.add(9);
+        list2.add(7);
+
+        List list3 = new LinkedList();
+        list3.add(2);
+        list3.add(3);
+        list3.add(0);
+
+        final ContentInit init = new ContentInit();
+        init.add(list);
+        init.add(list2);
+        init.add(list3);
+
+
+        //final Cache<List> cache = new Cache<>();
+
+      //  cache.add(cache.customers);
 
     }
 
