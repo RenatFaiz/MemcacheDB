@@ -14,24 +14,26 @@ public class Cache<T> {
     Queue queue = new Queue();
     Queue[] queues = new Queue[maxQSize];
 
-    private static int index = 0;
+    private static int index;
 
-//    Cache() {
+    Cache() {
 //        queues = new Queue[maxQSize];
 //        queue = new Queue();
-//    }
+    //    index++;
+    }
 
 
     public T addToCache(T e) {
         if (index < 10) {
             if (e != null && queue.size() < maxQueue) {
                 queue.enqueue(e);
-                index = 1;
+               // index = 1;
             } else {
                 queue = new Queue();
                 queue.enqueue(e);
                 index++;
             }
+
         }
         if (index > 10) {
             addToArray(queue);
@@ -53,7 +55,7 @@ public class Cache<T> {
     public String toString() {
         return "Queue: " + queue + "\nsize: "
                 + queue.size() + " index: "
-                + index + "\nArray: " + Arrays.toString(queues);
+                + index + "\nArray: "; //+ Arrays.toString(queues);
     }
 
 //    public String displayArray() {
