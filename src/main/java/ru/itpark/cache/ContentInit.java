@@ -12,29 +12,9 @@ public class ContentInit {
 
     private final String url = "jdbc:sqlite:chinook.db";
 
-    final List<Customer> customers = JdbcTemplate.executeQuery(
-            url,
-            "SELECT id, login, name, order_id FROM customers_new;",
-            new RowMapper<Customer>() {
-                @Override
-                public Customer map(ResultSet resultSet) throws SQLException {
-                    return new Customer(
-                            resultSet.getInt("id"),
-                            resultSet.getString("login"),
-                            resultSet.getString("name"),
-                            resultSet.getInt("order_id"));
-                }
-            }
-    );
-
-    int resultUpdate = JdbcTemplate.executeUpdate(url,
-            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
-            0);
-
-//    final List<Customer> updateCustomers = JdbcTemplate.executeUpdate(
+//    final List<Customer> customers = JdbcTemplate.executeQuery(
 //            url,
-//            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
-//            2,
+//            "SELECT id, login, name, order_id FROM customers_new;",
 //            new RowMapper<Customer>() {
 //                @Override
 //                public Customer map(ResultSet resultSet) throws SQLException {
@@ -46,45 +26,18 @@ public class ContentInit {
 //                }
 //            }
 //    );
-
-
-//    public List<T> addToCache() {
-//        List<T> cache = null;
-//        while (customers.size() < 1000) {
-//            cache.add(customers);
-//        }
-//    }
-
-    public void addCustomers() {
-//        HashSet<List<Customer>> set = new LinkedHashSet<>(10);
-//        set.add(customers);
-//        System.out.println(customers);
 //
-//        List<List<Customer>> list = new LinkedList<>();
-//        list.add(customers);
-//        System.out.println(list);
-//
-//
-////        List list = new ArrayList();
-////        list.add(customers);
-//
-//        Set<List<Customer>> s = Collections.synchronizedSet(set);
-//        System.out.println(s);
-//        Queue<List<Customer>> queue = new LinkedBlockingQueue<>(15);
+//    int resultUpdate = JdbcTemplate.executeUpdate(url,
+//            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
+//            0);
 
 
-//        final NewCache<List> cache = new NewCache<>();
-//        cache.addToCache(customers);
-//        cache.addToCache(customers);
-//        cache.addToCache(customers);
-//        System.out.println(cache);
-    }
-
-    //static Cache<List> cache;
     final Cache<List> cache = new Cache<>();
 
     public List add(List list) {
-        cache.addToCache(list);
+        if (!list.isEmpty()) {
+            cache.addToCache(list);
+        }
         System.out.println("Added to cache: \n" + cache);
         return list;
     }
@@ -106,17 +59,21 @@ public class ContentInit {
         list3.add(3);
         list3.add(0);
 
+        List list4 = new LinkedList();
+        list4.add(11);
+        list4.add(22);
+        list4.add(10);
+
         final ContentInit init = new ContentInit();
-//        init.add(list);
-//        init.add(list2);
-//        init.add(list3);
+        init.add(list);
+        init.add(list2);
+        init.add(list3);
+        init.add(list4);
 
 
-        // init.add(init.customers);
-        init.add(init.customers);
-        System.out.println("Changed lines: " + init.resultUpdate);
+//        init.add(init.customers);
+//        init.add(init.customers);
+//        System.out.println("Changed lines: " + init.resultUpdate);
 
     }
-
-
 }
