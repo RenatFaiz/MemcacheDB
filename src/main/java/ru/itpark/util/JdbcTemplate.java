@@ -25,17 +25,17 @@ public class JdbcTemplate {
         }
     }
 
-    public static <T> List<T> executeUpdate(String url, String sql, RowMapper<T> mapper) {
+    // for SELECT queries use ResultSet - rs.executeQuery();
+    public static int executeUpdate(String url, String sql, int element) {
         try (
                 Connection connection = DriverManager.getConnection(url);
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                ResultSet resultSet = preparedStatement.executeQuery()
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
+
         ) {
-                List<T> result = new LinkedList<>();
-                while (resultSet.next()) {
-                    result.add(mapper.map(resultSet));
-                }
-                return result;
+            preparedStatement.setInt(1, element);
+            // preparedStatement.execute(); boolean
+
+            return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SqlMappingException(e);
         }

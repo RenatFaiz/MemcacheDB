@@ -8,22 +8,28 @@ import java.util.*;
 
 public class Cache<T> {
 
-    final  int maxQSize = 10;
+    final static int maxQSize = 10;
 
-    public  Queue[] queues = new Queue[maxQSize];
+    static Queue[] queues;
 
-    Queue queue = new Queue();
+    static Queue queue;
 
     private int index = 0;
+
+    Cache() {
+        queues = new Queue[maxQSize];
+        queue = new Queue();
+    }
 
 
     public T addToCache(T e) {
 
-        if (e != null && queue.size() < 10) {
+        if (e != null && queue.size() < 5) {
             queue.enqueue(e);
-            //queues[index] = queue;
+            queues[index] = queue;
             index++;
-        } else {
+        }
+        if (queue.size() > 5 && index < maxQSize) {
             queue = new Queue();
             queue.enqueue(e);
             index++;
@@ -37,7 +43,7 @@ public class Cache<T> {
 
     @Override
     public String toString() {
-        return "NewCache: " + queue + "\n size: "
+        return "Queue: " + queue + "\n size: "
                 + queue.size() + " index: "
                 + index + "\n Array: "; // + Arrays.toString(queues);
     }

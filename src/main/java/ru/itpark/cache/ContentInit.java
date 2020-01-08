@@ -24,11 +24,28 @@ public class ContentInit {
                             resultSet.getString("name"),
                             resultSet.getInt("order_id"));
                 }
-            });
+            }
+    );
 
+    int resultUpdate = JdbcTemplate.executeUpdate(url,
+            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
+            0);
 
-
-
+//    final List<Customer> updateCustomers = JdbcTemplate.executeUpdate(
+//            url,
+//            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
+//            2,
+//            new RowMapper<Customer>() {
+//                @Override
+//                public Customer map(ResultSet resultSet) throws SQLException {
+//                    return new Customer(
+//                            resultSet.getInt("id"),
+//                            resultSet.getString("login"),
+//                            resultSet.getString("name"),
+//                            resultSet.getInt("order_id"));
+//                }
+//            }
+//    );
 
 
 //    public List<T> addToCache() {
@@ -56,19 +73,19 @@ public class ContentInit {
 //        Queue<List<Customer>> queue = new LinkedBlockingQueue<>(15);
 
 
-
 //        final NewCache<List> cache = new NewCache<>();
 //        cache.addToCache(customers);
 //        cache.addToCache(customers);
 //        cache.addToCache(customers);
 //        System.out.println(cache);
     }
+
     //static Cache<List> cache;
     final Cache<List> cache = new Cache<>();
 
     public List add(List list) {
         cache.addToCache(list);
-        System.out.println(cache);
+        System.out.println("Added to cache: \n" + cache);
         return list;
     }
 
@@ -90,14 +107,14 @@ public class ContentInit {
         list3.add(0);
 
         final ContentInit init = new ContentInit();
-        init.add(list);
-        init.add(list2);
-        init.add(list3);
+//        init.add(list);
+//        init.add(list2);
+//        init.add(list3);
 
 
-        //final Cache<List> cache = new Cache<>();
-
-      //  cache.add(cache.customers);
+        // init.add(init.customers);
+        init.add(init.customers);
+        System.out.println("Changed lines: " + init.resultUpdate);
 
     }
 
