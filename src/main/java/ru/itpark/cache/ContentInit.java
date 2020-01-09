@@ -10,8 +10,8 @@ import java.util.*;
 
 public class ContentInit {
 
-    private final String url = "jdbc:sqlite:chinook.db";
-
+//    private final String url = "jdbc:sqlite:chinook.db";
+//
 //    final List<Customer> customers = JdbcTemplate.executeQuery(
 //            url,
 //            "SELECT id, login, name, order_id FROM customers_new;",
@@ -36,7 +36,7 @@ public class ContentInit {
 
     public List add(List list) {
         if (!list.isEmpty()) {
-            cache.addToCache(list);
+            cache.addToArray(list);
         }
         System.out.println("Added to cache: \n" + cache);
         return list;
