@@ -10,26 +10,26 @@ import java.util.*;
 
 public class ContentInit {
 
-//    private final String url = "jdbc:sqlite:chinook.db";
-//
-//    final List<Customer> customers = JdbcTemplate.executeQuery(
-//            url,
-//            "SELECT id, login, name, order_id FROM customers_new;",
-//            new RowMapper<Customer>() {
-//                @Override
-//                public Customer map(ResultSet resultSet) throws SQLException {
-//                    return new Customer(
-//                            resultSet.getInt("id"),
-//                            resultSet.getString("login"),
-//                            resultSet.getString("name"),
-//                            resultSet.getInt("order_id"));
-//                }
-//            }
-//    );
-//
-//    int resultUpdate = JdbcTemplate.executeUpdate(url,
-//            "UPDATE customers_new SET order_id = ? WHERE name = 'Лиля';",
-//            0);
+    private final String url = "jdbc:sqlite:customers.sqlite";
+
+    final List<Customer> customers = JdbcTemplate.executeQuery(
+            url,
+            "SELECT id, login, name, order_id FROM customers;",
+            new RowMapper<Customer>() {
+                @Override
+                public Customer map(ResultSet resultSet) throws SQLException {
+                    return new Customer(
+                            resultSet.getInt("id"),
+                            resultSet.getString("login"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("order_id"));
+                }
+            }
+    );
+
+    int resultUpdate = JdbcTemplate.executeUpdate(url,
+            "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
+            0);
 
 
     final Cache<List> cache = new Cache<>();
@@ -65,13 +65,13 @@ public class ContentInit {
         list4.add(10);
 
         final ContentInit init = new ContentInit();
-        init.add(list);
-        init.add(list2);
-        init.add(list3);
-        init.add(list4);
+//        init.add(list);
+//        init.add(list2);
+//        init.add(list3);
+//        init.add(list4);
 
 
-//        init.add(init.customers);
+        init.add(init.customers);
 //        init.add(init.customers);
 //        System.out.println("Changed lines: " + init.resultUpdate);
 

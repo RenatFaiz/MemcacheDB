@@ -11,6 +11,7 @@ public class JdbcTemplate {
     public static <T> List<T> executeQuery(String url, String sql, RowMapper<T> mapper) {
         try (
                 Connection connection = DriverManager.getConnection(url);
+                Connection connectionMemory = DriverManager.getConnection(url);
                 Statement statement = connection.createStatement();
                 ResultSet resultSet = statement.executeQuery(sql)
         ) {
