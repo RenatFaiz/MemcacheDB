@@ -58,3 +58,5 @@ VALUES (1, 1, 0, 'Микроволновая печь V-HOME P70H20L-KH', 1, 320
        (4, 2, 6, 'Блендер Kitfort КТ-1363-5', 2, 3580, 'Самовывоз', 1, '2019-09-23 18:30:00');
 
 # The EXPLAIN QUERY PLAN Command
+# Add database in memory
+ATTACH DATABASE ':memory:' AS customers1;

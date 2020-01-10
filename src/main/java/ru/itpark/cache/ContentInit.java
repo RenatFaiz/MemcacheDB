@@ -29,7 +29,7 @@ public class ContentInit {
 
     int resultUpdate = JdbcTemplate.executeUpdate(url,
             "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
-            0);
+            2);
 
 
     final Cache<List> cache = new Cache<>();
