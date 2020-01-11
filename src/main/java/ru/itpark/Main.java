@@ -1,6 +1,7 @@
 package ru.itpark;
 
 import ru.itpark.model.Customer;
+import ru.itpark.util.JdbcInMemory;
 import ru.itpark.util.JdbcTemplate;
 import ru.itpark.util.RowMapper;
 
@@ -13,11 +14,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        final String url = "jdbc:sqlite:chinook.db";
 
-        final List<Customer> customers = JdbcTemplate.executeQuery(
-                url,
-                "SELECT id, login, name, order_id FROM customers_new;",
+        final String url = "jdbc:sqlite::memory:";
+        List<Customer> customers = JdbcInMemory.executeQuery(url,
+                "./customers.sqlite",
+                "SELECT * FROM customers",
                 new RowMapper<Customer>() {
                     @Override
                     public Customer map(ResultSet resultSet) throws SQLException {
@@ -25,10 +26,31 @@ public class Main {
                                 resultSet.getInt("id"),
                                 resultSet.getString("login"),
                                 resultSet.getString("name"),
-                                resultSet.getInt("order_id"));
+                                resultSet.getInt("order_id")
+                        );
                     }
                 });
-        System.out.print(customers);
+        System.out.println(customers);
+
+
+
+
+//        final String url = "jdbc:sqlite:chinook.db";
+//
+//        final List<Customer> customers = JdbcTemplate.executeQuery(
+//                url,
+//                "SELECT id, login, name, order_id FROM customers_new;",
+//                new RowMapper<Customer>() {
+//                    @Override
+//                    public Customer map(ResultSet resultSet) throws SQLException {
+//                        return new Customer(
+//                                resultSet.getInt("id"),
+//                                resultSet.getString("login"),
+//                                resultSet.getString("name"),
+//                                resultSet.getInt("order_id"));
+//                    }
+//                });
+//        System.out.print(customers);
 //        Cache cache = new Cache();
 //        cache.addCustomers();
     }
