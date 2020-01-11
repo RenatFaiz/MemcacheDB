@@ -16,8 +16,10 @@ public class Main {
     public static void main(String[] args) {
 
         final String url = "jdbc:sqlite::memory:";
+        final String pathToDb = "./customers.sqlite";
+
         List<Customer> customers = JdbcInMemory.executeQuery(url,
-                "./customers.sqlite",
+                pathToDb,
                 "SELECT * FROM customers",
                 new RowMapper<Customer>() {
                     @Override
@@ -30,6 +32,12 @@ public class Main {
                         );
                     }
                 });
+        int update = JdbcInMemory.executeUpdate(url,
+                pathToDb,
+                "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
+                7);
+
+        System.out.println(update);
         System.out.println(customers);
 
 

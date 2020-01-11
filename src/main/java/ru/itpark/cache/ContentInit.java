@@ -1,6 +1,7 @@
 package ru.itpark.cache;
 
 import ru.itpark.model.Customer;
+import ru.itpark.util.JdbcInMemory;
 import ru.itpark.util.JdbcTemplate;
 import ru.itpark.util.RowMapper;
 
@@ -12,8 +13,9 @@ public class ContentInit {
 
     private final String url = "jdbc:sqlite:customers.sqlite";
 
-    final List<Customer> customers = JdbcTemplate.executeQuery(
+    final List<Customer> customers = JdbcInMemory.executeQuery(
             url,
+            "./customers.sqlite",
             "SELECT id, login, name, order_id FROM customers;",
             new RowMapper<Customer>() {
                 @Override
