@@ -4,6 +4,13 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/* Класс - посредник между джавой и БД.
+ * Методы:
+ * executeQuery работает для SELECT запросов,
+ * executeUpdate - для INSERT, UPDATE, DELETE. Перед началом работы с БД,
+ * она скачивается (restore from) в указанный URL
+ */
 public class JdbcInMemory {
     private JdbcInMemory() {
     }
@@ -30,15 +37,13 @@ public class JdbcInMemory {
 
     }
 
-    //    String pathToDb,
-
     public static int executeUpdate(String url, String pathToDb,
                                     String sql, int element) {
         try (Connection connection = DriverManager.getConnection(url);
              Statement statement = connection.createStatement();
 
         ) {
-            statement.execute("restore from ./customers.sqlite");
+            statement.execute("restore from " + pathToDb);
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, element);

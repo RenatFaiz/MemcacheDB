@@ -4,6 +4,11 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/* Класс - посредник между джавой и БД.
+ * Методы:
+ * executeQuery работает для SELECT запросов,
+ * executeUpdate - для INSERT, UPDATE, DELETE.
+ */
 public class JdbcTemplate {
     private JdbcTemplate() {
     }

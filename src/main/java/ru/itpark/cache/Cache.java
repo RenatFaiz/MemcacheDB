@@ -5,7 +5,13 @@ import ru.itpark.util.Queue;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Моя реализация для кэша.
+ * метод addToArray(List<T> list) - создает массив из List (пока что выбрал этот вариант)
+ * метод addToCache(T e) - добавляет в очередь (FIFO) элементы типа <T>
+ * метод addToArray(Queue queue) - создаёт массив из очередей Queue
+ * @param <T>
+ */
 public class Cache<T> {
 
     final int maxQueue = 2;

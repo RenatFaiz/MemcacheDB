@@ -1,6 +1,10 @@
 package ru.itpark.util;
 
+/**
+ * Общий класс для SQL исключений
+ */
 public class SqlMappingException extends RuntimeException {
+
     public SqlMappingException() {
         super();
     }

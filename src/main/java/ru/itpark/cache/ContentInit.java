@@ -75,7 +75,7 @@ public class ContentInit {
 
         init.add(init.customers);
 //        init.add(init.customers);
-//        System.out.println("Changed lines: " + init.resultUpdate);
+        System.out.println("Changed lines: " + init.resultUpdate);
 
     }
 }
