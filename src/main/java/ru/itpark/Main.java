@@ -38,14 +38,17 @@ public class Main {
 //                pathToDb,
 //                "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
 //                7);
+        System.out.println("List lines: " + customers.size());
 
         GuavaCache.getCache().put(1, customers);
+        GuavaCache.getCache().put(2, customers);
         GuavaCache.showCache();
-        Thread.sleep(5000);
-        GuavaCache.showCache();
-//        System.out.println(customers);
-//        System.out.println(update);
+//        System.out.println(GuavaCache.getCache());
 
+//        Thread.sleep(5000);
+//        GuavaCache.showCache();
+
+//        System.out.println(update);
 
 
 //        final String url = "jdbc:sqlite:chinook.db";

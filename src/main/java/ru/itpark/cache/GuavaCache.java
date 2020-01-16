@@ -1,9 +1,7 @@
 package ru.itpark.cache;
 
+import com.google.common.cache.*;
 import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.RemovalListener;
-import com.google.common.cache.RemovalNotification;
 
 import java.util.List;
 
@@ -19,7 +17,17 @@ public class GuavaCache {
                             + notification.getValue() + "\nCause:" + notification.getCause());
                 }
             })
-            .maximumSize(20)
+//            .maximumSize(20)
+            .weigher(new Weigher<Integer, List>() {
+                @Override
+                public int weigh(Integer key, List value) {
+                    int size = key + value.size(); //TODO: correct value size
+                    System.out.println("size: " + size);
+                    return size;
+                }
+            })
+            .maximumWeight(10)
+            .recordStats()
             .build();
 
 
@@ -30,5 +38,6 @@ public class GuavaCache {
     public static void showCache() {
         cache.asMap().forEach((key, value) ->
                 System.out.println("In cache: " + key + " -> " + value));
+        System.out.println("Number of entries: " + cache.size());
     }
 }
