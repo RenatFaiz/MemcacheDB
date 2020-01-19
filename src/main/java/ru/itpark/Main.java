@@ -17,7 +17,6 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-
         final String url = "jdbc:sqlite::memory:";
         final String pathToDb = "./customers.sqlite";
         List<Customer> customers = JdbcInMemory.executeQuery(url,
@@ -34,21 +33,17 @@ public class Main {
                         );
                     }
                 });
-//        int update = JdbcInMemory.executeUpdate(url,
-//                pathToDb,
-//                "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
-//                7);
-        System.out.println("List lines: " + customers.size());
+        int update = JdbcTemplate.executeUpdate("jdbc:sqlite:customers.sqlite",
+                "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
+                7);
 
+        System.out.println("Changed lines:" + update);
+
+        System.out.println("List lines: " + customers.size());
         GuavaCache.getCache().put(1, customers);
         GuavaCache.getCache().put(2, customers);
         GuavaCache.showCache();
-//        System.out.println(GuavaCache.getCache());
 
-//        Thread.sleep(5000);
-//        GuavaCache.showCache();
-
-//        System.out.println(update);
 
 
 //        final String url = "jdbc:sqlite:chinook.db";

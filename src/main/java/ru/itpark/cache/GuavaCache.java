@@ -5,6 +5,9 @@ import com.google.common.cache.Cache;
 
 import java.util.List;
 
+/**
+ * Кэш на основе библиотеки из фреймворка Google Guava
+ */
 public class GuavaCache {
 
     private static Cache<Integer, List> cache = CacheBuilder.newBuilder()
@@ -13,8 +16,9 @@ public class GuavaCache {
             .removalListener(new RemovalListener<Integer, List>() {
                 @Override
                 public void onRemoval(RemovalNotification<Integer, List> notification) {
-                    System.out.println("Removed: " + notification.getKey() + " -> "
-                            + notification.getValue() + "\nCause:" + notification.getCause());
+                    System.out.println("Removed: " + notification.getKey()
+                            + " -> " + notification.getValue()
+                            + "\nCause:" + notification.getCause());
                 }
             })
 //            .maximumSize(20)
@@ -29,7 +33,6 @@ public class GuavaCache {
             .maximumWeight(10)
             .recordStats()
             .build();
-
 
     public static Cache<Integer, List> getCache() {
         return cache;
