@@ -1,13 +1,9 @@
 package ru.itpark;
 
-import com.google.common.cache.Cache;
-import ru.itpark.cache.GuavaCache;
 import ru.itpark.model.Customer;
 import ru.itpark.util.JdbcTemplate;
 import ru.itpark.util.RowMapper;
 
-
-import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,7 +17,7 @@ public class Main {
  * В методе main тестируется добавление и отображение кэша с помощью класса GuavaCache.
  * Файл базы данных для теста customers.sqlite
  */
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         final String url = "jdbc:sqlite:customers.sqlite";
 
