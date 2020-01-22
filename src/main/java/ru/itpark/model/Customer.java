@@ -19,10 +19,6 @@ public class Customer implements Serializable {
     public String toString() {
         return "Customer (id " + this.id + ", login "
                 + this.login + ", name " + name
-                + ", order_id " + order_id + "\n"; //size: " + sizeOf();
+                + ", order_id " + order_id + "\n";
     }
-
-//    public int sizeOf() {
-//        return id + name.length() + login.length() + order_id;
-//    }
 }

@@ -4,15 +4,23 @@ import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
 
-/* Класс - посредник между Java и БД.
- * Методы:
- * executeQuery работает для SELECT запросов,
- * executeUpdate - для INSERT, UPDATE, DELETE.
+/**
+ * Класс для взаимодействия Java и баз данных.
  */
 public class JdbcTemplate {
     private JdbcTemplate() {
     }
 
+    /**
+     * Метод executeQuery работает для SELECT запросов.
+     *
+     * @param url    адрес базы данных
+     * @param sql    SQL запрос
+     * @param mapper объект класса RowMapper для сопоставления строк таблиц БД
+     *               с полями нужного класса
+     * @param <T>    обобщенный параметр
+     * @return возвращает LinkedList из результатов запроса
+     */
     public static <T> List<T> executeQuery(String url, String sql, RowMapper<T> mapper) {
         try (
                 Connection connection = DriverManager.getConnection(url);
@@ -30,20 +38,23 @@ public class JdbcTemplate {
         }
     }
 
-    // for SELECT queries use ResultSet - rs.executeQuery();
+    /**
+     * Метод executeUpdate для запросов INSERT, UPDATE, DELETE.
+     *
+     * @param url     адрес базы данных
+     * @param sql     SQL запрос
+     * @param element значение подставляемого в запрос элемента (int)
+     * @return возвращает число изменённых строк
+     */
     public static int executeUpdate(String url, String sql, int element) {
         try (
                 Connection connection = DriverManager.getConnection(url);
                 PreparedStatement preparedStatement = connection.prepareStatement(sql)
-
         ) {
             preparedStatement.setInt(1, element);
-            // preparedStatement.execute(); boolean
-
             return preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new SqlMappingException(e);
         }
     }
-
 }

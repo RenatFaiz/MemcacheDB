@@ -17,11 +17,12 @@ import static ru.itpark.cache.GuavaCache.showCache;
 
 public class Main {
 
-
+/*
+ * В методе main тестируется добавление и отображение кэша с помощью класса GuavaCache.
+ * Файл базы данных для теста customers.sqlite
+ */
     public static void main(String[] args) throws InterruptedException {
 
-//        final String url = "jdbc:sqlite::memory:";
-//        final String pathToDb = "./customers.sqlite";
         final String url = "jdbc:sqlite:customers.sqlite";
 
         List<Customer> customers = JdbcTemplate.executeQuery(url,
@@ -37,16 +38,18 @@ public class Main {
                         );
                     }
                 });
+
+        getCache().put(1, customers);
+        getCache().put(2, customers);
+        showCache();
+
         int update = JdbcTemplate.executeUpdate("jdbc:sqlite:customers.sqlite",
                 "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
                 7);
 
         System.out.println("Changed lines: " + update);
 
-//        System.out.println("List lines: " + customers.size());
-        getCache().put(1, customers);
-        getCache().put(2, customers);
-        showCache();
+        // 3 потока
 
     }
 }

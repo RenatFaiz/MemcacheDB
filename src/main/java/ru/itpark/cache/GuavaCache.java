@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
-
 /**
  * Кэш на основе библиотеки из фреймворка Google Guava
  */
