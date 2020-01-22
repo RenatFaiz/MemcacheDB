@@ -13,9 +13,8 @@ public class ContentInit {
 
     private final String url = "jdbc:sqlite:customers.sqlite";
 
-    final List<Customer> customers = JdbcInMemory.executeQuery(
+    final List<Customer> customers = JdbcTemplate.executeQuery(
             url,
-            "./customers.sqlite",
             "SELECT id, login, name, order_id FROM customers;",
             new RowMapper<Customer>() {
                 @Override
@@ -47,9 +46,9 @@ public class ContentInit {
 
     public static void main(String[] args) {
 
-        List list = new LinkedList();
-        list.add(4);
-        list.add(5);
+        List list1 = new LinkedList();
+        list1.add(4);
+        list1.add(5);
 
         List list2 = new LinkedList();
         list2.add(8);
@@ -67,14 +66,14 @@ public class ContentInit {
         list4.add(10);
 
         final ContentInit init = new ContentInit();
-//        init.add(list);
+//        init.add(list1);
 //        init.add(list2);
 //        init.add(list3);
 //        init.add(list4);
 
 
         init.add(init.customers);
-//        init.add(init.customers);
+        init.add(init.customers);
         System.out.println("Changed lines: " + init.resultUpdate);
 
     }
