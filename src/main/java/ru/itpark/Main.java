@@ -13,39 +13,55 @@ import static ru.itpark.cache.GuavaCache.showCache;
 
 public class Main {
 
-/*
- * В методе main тестируется добавление и отображение кэша с помощью класса GuavaCache.
- * Файл базы данных для теста customers.sqlite
- */
+    /*
+     * В методе main тестируется добавление и отображение кэша с помощью класса GuavaCache.
+     * Файл базы данных для теста customers.sqlite
+     */
+    private final static String url = "jdbc:sqlite:customers.sqlite";
+
+    private static List<Customer> customers = JdbcTemplate.executeQuery(url,
+            "SELECT * FROM customers",
+            new RowMapper<Customer>() {
+                @Override
+                public Customer map(ResultSet resultSet) throws SQLException {
+                    return new Customer(
+                            resultSet.getInt("id"),
+                            resultSet.getString("login"),
+                            resultSet.getString("name"),
+                            resultSet.getInt("order_id")
+                    );
+                }
+            });
+
+    private static int elementToUpdate = JdbcTemplate.executeUpdate(url,
+            "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
+            7);
+
     public static void main(String[] args) {
 
-        final String url = "jdbc:sqlite:customers.sqlite";
+        Thread thread1 = new Thread(() -> putAndRead(1, customers));
+        thread1.start();
 
-        List<Customer> customers = JdbcTemplate.executeQuery(url,
-                "SELECT * FROM customers",
-                new RowMapper<Customer>() {
-                    @Override
-                    public Customer map(ResultSet resultSet) throws SQLException {
-                        return new Customer(
-                                resultSet.getInt("id"),
-                                resultSet.getString("login"),
-                                resultSet.getString("name"),
-                                resultSet.getInt("order_id")
-                        );
-                    }
-                });
+        Thread thread2 = new Thread(() -> putAndRead(2, customers));
+        thread2.start();
 
-        getCache().put(1, customers);
-        getCache().put(2, customers);
+        Thread thread3 = new Thread(() -> putAndRead(3, customers));
+        thread3.start();
+
+        Thread thread4 = new Thread(() -> updateValue(elementToUpdate));
+        thread4.start();
+
+        Thread thread5 = new Thread(() -> updateValue(elementToUpdate));
+        thread5.start();
+        
+    }
+
+    private static void putAndRead(int key, List list) {
+        getCache().put(key, list);
         showCache();
+    }
 
-        int update = JdbcTemplate.executeUpdate("jdbc:sqlite:customers.sqlite",
-                "UPDATE customers SET order_id = ? WHERE name = 'Лиля';",
-                7);
-
-        System.out.println("Changed lines: " + update);
-
-        // 3 потока
-
+    private static void updateValue(int element) {
+        System.out.println("Changed lines: " + element);
     }
 }
