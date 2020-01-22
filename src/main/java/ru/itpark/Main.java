@@ -39,29 +39,31 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Thread thread1 = new Thread(() -> putAndRead(1, customers));
+
+        Thread thread1 = new Thread(() -> putValue(1, customers));
         thread1.start();
 
-        Thread thread2 = new Thread(() -> putAndRead(2, customers));
+        Thread thread2 = new Thread(() -> putValue(2, customers));
         thread2.start();
 
-        Thread thread3 = new Thread(() -> putAndRead(3, customers));
+        Thread thread3 = new Thread(() -> putValue(3, customers));
         thread3.start();
 
-        Thread thread4 = new Thread(() -> updateValue(elementToUpdate));
+        Thread thread4 = new Thread(() -> updateElement(elementToUpdate));
         thread4.start();
 
-        Thread thread5 = new Thread(() -> updateValue(elementToUpdate));
+        Thread thread5 = new Thread(() -> updateElement(elementToUpdate));
         thread5.start();
-        
+
+
     }
 
-    private static void putAndRead(int key, List list) {
+    private static void putValue(int key, List list) {
         getCache().put(key, list);
         showCache();
     }
 
-    private static void updateValue(int element) {
+    private static void updateElement(int element) {
         System.out.println("Changed lines: " + element);
     }
 }

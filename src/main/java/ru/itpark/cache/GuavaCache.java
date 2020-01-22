@@ -9,13 +9,20 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * Кэш на основе библиотеки из фреймворка Google Guava
+ * Кэш на основе библиотеки из фреймворка Google Guava.
+ * {@code initialCapacity} устанавливает минимальный
+ * общий размер для внутренних хеш-таблиц.
+ * {@code concurrencyLevel} максимальное количестов одновременных обновлений.
+ * {@code removalListener} уведомления об удалении записи и о её причине.
+ * {@code weigher} метод определяет размер("вес") содержимого кэша.
+ * {@code maximumWeight} устанваливает максимальный размер("вес") кэша.
+ * {@code recordStats} записывает статистику использования кэша.
  */
 public class GuavaCache {
 
     private static Cache<Integer, List> cache = CacheBuilder.newBuilder()
             .initialCapacity(16)
-            .concurrencyLevel(4)
+            .concurrencyLevel(10)
             .removalListener(new RemovalListener<Integer, List>() {
                 @Override
                 public void onRemoval(RemovalNotification<Integer, List> notification) {
@@ -46,6 +53,7 @@ public class GuavaCache {
         System.out.println("Number of entries: " + cache.size());
     }
 
+    // Метод для расчёта размера загружаемых листов в байтах
     public static int getBytesFromList(List list) throws IOException {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream out = new ObjectOutputStream(baos);
