@@ -3,7 +3,11 @@ package ru.itpark.cache;
 import com.google.common.cache.*;
 import com.google.common.cache.Cache;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.List;
+
 
 /**
  * Кэш на основе библиотеки из фреймворка Google Guava
@@ -21,16 +25,15 @@ public class GuavaCache {
                             + "\nCause:" + notification.getCause());
                 }
             })
-//            .maximumSize(20)
             .weigher(new Weigher<Integer, List>() {
                 @Override
                 public int weigh(Integer key, List value) {
-                    int size = key + value.size(); //TODO: correct value size
+                    int size = key + value.size();
                     System.out.println("size: " + size);
                     return size;
                 }
             })
-            .maximumWeight(10)
+            .maximumWeight(500L)
             .recordStats()
             .build();
 
@@ -42,5 +45,13 @@ public class GuavaCache {
         cache.asMap().forEach((key, value) ->
                 System.out.println("In cache: " + key + " -> " + value));
         System.out.println("Number of entries: " + cache.size());
+    }
+
+    public static int getBytesFromList(List list) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream out = new ObjectOutputStream(baos);
+        out.writeObject(list);
+        out.close();
+        return baos.toByteArray().length;
     }
 }
