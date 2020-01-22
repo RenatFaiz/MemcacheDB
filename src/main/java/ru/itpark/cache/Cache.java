@@ -5,8 +5,6 @@ import java.util.List;
 
 /**
  * Реализация кэша в виде массивов из List.
- *
- * @param <T>
  */
 public class Cache<T> {
 
