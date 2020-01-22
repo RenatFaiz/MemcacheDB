@@ -66,15 +66,15 @@ public class ContentInit {
         list4.add(10);
 
         final ContentInit init = new ContentInit();
-//        init.add(list1);
-//        init.add(list2);
-//        init.add(list3);
-//        init.add(list4);
+        init.add(list1);
+        init.add(list2);
+        init.add(list3);
+        init.add(list4);
 
 
-        init.add(init.customers);
-        init.add(init.customers);
-        System.out.println("Changed lines: " + init.resultUpdate);
+//        init.add(init.customers);
+//        init.add(init.customers);
+//        System.out.println("Changed lines: " + init.resultUpdate);
 
     }
 }

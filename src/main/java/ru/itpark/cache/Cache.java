@@ -4,10 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Моя реализация для кэша.
- * метод addToArray(List<T> list) - создает массив из List (пока что выбрал этот вариант)
- * метод addToCache(T e) - добавляет в очередь (FIFO) элементы типа <T>
- * метод addToArray(Queue queue) - создаёт массив из очередей Queue
+ * Реализация кэша в виде массивов из List.
+ *
  * @param <T>
  */
 public class Cache<T> {
@@ -18,6 +16,15 @@ public class Cache<T> {
     final int maxSize = 5;
     List<T>[] lists = new List[maxSize];
 
+    /**
+     * Метод addToArray(List<T> list) - создает массив из List.
+     * Каждый новый лист добавляется в конец массива.
+     * {@code index} - номер листа внутри массива.
+     * {@code counter} - счетчик всех листов в кэше.
+     *
+     * @param list принимает объекты типа List
+     * @return возвращает массив из List
+     */
     public List<T>[] addToArray(List<T> list) {
 
         if (index < maxSize) {
@@ -26,7 +33,7 @@ public class Cache<T> {
             counter++;
 
         } else {
-            lists = new List[maxSize *2];
+            lists = new List[maxSize * 2];
             index = 0;
             lists[index] = list;
             index++;
